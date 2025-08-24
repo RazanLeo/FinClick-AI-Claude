@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinClick.AI - نظام التحليل المالي الذكي</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        color: #D4AF37;
+        min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        padding: 20px 0;
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .logo-container {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid #FFD700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .logo-placeholder {
+        color: #FFD700;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .header-text {
+        text-align: center;
+    }
+
+    .header-text h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        margin-bottom: 10px;
+    }
+
+    .header-text p {
+        font-size: 1.2rem;
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* Main Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    /* Upload Section */
+    .upload-section {
+        background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+        border-radius: 20px;
+        border: 2px solid #FFD700;
+        padding: 40px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        text-align: center;
+    }
+
+    .upload-area {
+        border: 3px dashed #FFD700;
+        border-radius: 15px;
+        padding: 60px 20px;
+        background: rgba(255, 215, 0, 0.05);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .upload-area:hover {
+        background: rgba(255, 215, 0, 0.1);
+        border-color: #FFA500;
+    }
+
+    .upload-area.dragover {
+        background: rgba(255, 215, 0, 0.15);
+        border-color: #FFA500;
+        transform: scale(1.02);
+    }
+
+    .upload-icon {
+        font-size: 4rem;
+        color: #FFD700;
+        margin-bottom: 20px;
+    }
+
+    .upload-text h3 {
+        font-size: 1.8rem;
+        color: #FFD700;
+        margin-bottom: 10px;
+    }
+
+    .upload-text p {
+        font-size: 1.1rem;
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .upload-btn {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        color: #000;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .upload-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Processing Section */
+    .processing-section {
+        display: none;
+        background: #1a1a1a;
+        border-radius: 20px;
+        border: 2px solid #FFD700;
+        padding: 40px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid #333;
+        border-top: 4px solid #FFD700;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Results Section */
+    .results-section {
+        display: none;
+    }
+
+    .analysis-tabs {
+        display: flex;
+        background: #1a1a1a;
+        border-radius: 15px;
+        padding: 5px;
+        margin-bottom: 30px;
+        border: 2px solid #FFD700;
+    }
+
+    .tab-btn {
+        flex: 1;
+        background: transparent;
+        color: #ccc;
+        border: none;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        color: #000;
+        font-weight: bold;
+    }
+
+    .tab-content {
+        display: none;
+        background: #1a1a1a;
+        border-radius: 20px;
+        border: 2px solid #FFD700;
+        padding: 30px;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    /* Ratios Grid */
+    .ratios-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .ratio-card {
+        background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        border-radius: 15px;
+        border: 1px solid #FFD700;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .ratio-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .ratio-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #FFD700;
+        margin-bottom: 10px;
+    }
+
+    .ratio-name {
+        font-size: 1.1rem;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .ratio-status {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .status-excellent { background: #4CAF50; color: white; }
+    .status-good { background: #8BC34A; color: white; }
+    .status-fair { background: #FF9800; color: white; }
+    .status-poor { background: #f44336; color: white; }
+
+    /* Charts Container */
+    .charts-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .chart-card {
+        background: #1a1a1a;
+        border-radius: 15px;
+        border: 1px solid #FFD700;
+        padding: 20px;
+    }
+
+    .chart-title {
+        color: #FFD700;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    /* Recommendations */
+    .recommendations {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        border-radius: 15px;
+        border: 2px solid #FFD700;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .recommendations h3 {
+        color: #FFD700;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .recommendation-item {
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid #FFD700;
+    }
+
+    .recommendation-item h4 {
+        color: #FFD700;
+        margin-bottom: 10px;
+    }
+
+    /* Export Buttons */
+    .export-section {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .export-btn {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        color: #000;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+    }
+
+    .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .header-text h1 {
+            font-size: 2rem;
+        }
+        
+        .analysis-tabs {
+            flex-direction: column;
+        }
+        
+        .ratios-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .charts-container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* File List */
+    .file-list {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .file-item {
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #FFD700;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .file-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .file-icon {
+        color: #FFD700;
+        font-size: 1.2rem;
+    }
+
+    .file-details {
+        text-align: right;
+    }
+
+    .file-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .file-size {
+        color: #ccc;
+        font-size: 0.9rem;
+    }
+
+    .remove-file {
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+```
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <!-- ضع صورة الشعار هنا -->
+                <div class="logo-placeholder">AI</div>
+            </div>
+            <div class="header-text">
+                <h1>FinClick.AI</h1>
+                <p>نظام التحليل المالي الذكي المتقدم</p>
+            </div>
+        </div>
+    </div>
+
+```
+<!-- Main Container -->
+<div class="container">
+    <!-- Upload Section -->
+    <div class="upload-section">
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <div class="upload-text">
+                <h3>قم برفع القوائم المالية</h3>
+                <p>يدعم ملفات PDF, Excel, CSV, Word والصور</p>
+            </div>
+            <input type="file" id="fileInput" class="file-input" multiple accept=".pdf,.xlsx,.xls,.csv,.docx,.doc,.jpg,.jpeg,.png">
+            <button type="button" class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-upload"></i> اختر الملفات
+            </button>
+        </div>
+        <div class="file-list" id="fileList"></div>
+        <div style="margin-top: 30px; text-align: center;">
+            <button type="button" class="upload-btn" id="analyzeBtn" style="display: none; font-size: 1.2rem; padding: 20px 40px;">
+                <i class="fas fa-chart-line"></i> ابدأ التحليل المالي
+            </button>
+        </div>
+    </div>
+
+    <!-- Processing Section -->
+    <div class="processing-section" id="processingSection">
+        <div class="spinner"></div>
+        <h3 style="color: #FFD700; margin-bottom: 10px;">جاري التحليل المالي...</h3>
+        <p style="color: #ccc;">يتم الآن معالجة القوائم المالية وحساب جميع النسب والمؤشرات</p>
+        <div id="processingSteps" style="margin-top: 20px; text-align: right;"></div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section" id="resultsSection">
+        <!-- Analysis Tabs -->
+        <div class="analysis-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">نظرة عامة</button>
+            <button class="tab-btn" onclick="showTab('ratios')">النسب المالية</button>
+            <button class="tab-btn" onclick="showTab('trends')">الاتجاهات</button>
+            <button class="tab-btn" onclick="showTab('comparison')">المقارنات</button>
+            <button class="tab-btn" onclick="showTab('risks')">المخاطر</button>
+            <button class="tab-btn" onclick="showTab('recommendations')">التوصيات</button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="overview" class="tab-content active">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 30px;">نظرة عامة على الأداء المالي</h2>
+            <div id="overviewContent"></div>
+        </div>
+
+        <div id="ratios" class="tab-content">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 30px;">النسب المالية الـ 29</h2>
+            <div id="ratiosContent"></div>
+        </div>
+
+        <div id="trends" class="tab-content">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 30px;">تحليل الاتجاهات</h2>
+            <div id="trendsContent"></div>
+        </div>
+
+        <div id="comparison" class="tab-content">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 30px;">المقارنات القطاعية</h2>
+            <div id="comparisonContent"></div>
+        </div>
+
+        <div id="risks" class="tab-content">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 30px;">تقييم المخاطر</h2>
+            <div id="risksContent"></div>
+        </div>
+
+        <div id="recommendations" class="tab-content">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 30px;">التوصيات والقرارات</h2>
+            <div id="recommendationsContent"></div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <h3 style="color: #FFD700; margin-bottom: 20px;">تصدير التقارير</h3>
+            <button class="export-btn" onclick="exportPDF()">
+                <i class="fas fa-file-pdf"></i> تقرير PDF
+            </button>
+            <button class="export-btn" onclick="exportExcel()">
+                <i class="fas fa-file-excel"></i> ملف Excel
+            </button>
+            <button class="export-btn" onclick="exportWord()">
+                <i class="fas fa-file-word"></i> مستند Word
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // التحليل المالي الأساسي
+    let uploadedFiles = [];
+    let analysisData = {};
+
+    // النسب المالية الـ 29
+    const financialRatios = {
+        liquidity: [
+            { name: 'النسبة الجارية', key: 'currentRatio', formula: 'الأصول المتداولة / الخصوم المتداولة' },
+            { name: 'النسبة السريعة', key: 'quickRatio', formula: '(الأصول المتداولة - المخزون) / الخصوم المتداولة' },
+            { name: 'النسبة النقدية', key: 'cashRatio', formula: 'النقد والأوراق المالية / الخصوم المتداولة' },
+            { name: 'نسبة رأس المال العامل', key: 'workingCapitalRatio', formula: 'رأس المال العامل / إجمالي الأصول' }
+        ],
+        profitability: [
+            { name: 'هامش الربح الإجمالي', key: 'grossProfitMargin', formula: 'الربح الإجمالي / صافي المبيعات' },
+            { name: 'هامش الربح التشغيلي', key: 'operatingMargin', formula: 'الربح التشغيلي / صافي المبيعات' },
+            { name: 'هامش الربح الصافي', key: 'netProfitMargin', formula: 'صافي الربح / صافي المبيعات' },
+            { name: 'العائد على الأصول', key: 'roa', formula: 'صافي الربح / متوسط إجمالي الأصول' },
+            { name: 'العائد على حقوق الملكية', key: 'roe', formula: 'صافي الربح / متوسط حقوق الملكية' },
+            { name: 'العائد على رأس المال المستثمر', key: 'roic', formula: 'صافي الربح / رأس المال المستثمر' }
+        ],
+        efficiency: [
+            { name: 'معدل دوران الأصول', key: 'assetTurnover', formula: 'صافي المبيعات / متوسط إجمالي الأصول' },
+            { name: 'معدل دوران المخزون', key: 'inventoryTurnover', formula: 'تكلفة البضاعة المباعة / متوسط المخزون' },
+            { name: 'معدل دوران الحسابات المدينة', key: 'receivablesTurnover', formula: 'صافي المبيعات الآجلة / متوسط الحسابات المدينة' },
+            { name: 'معدل دوران الحسابات الدائنة', key: 'payablesTurnover', formula: 'تكلفة البضاعة المباعة / متوسط الحسابات الدائنة' },
+            { name: 'فترة التحصيل', key: 'collectionPeriod', formula: '365 / معدل دوران الحسابات المدينة' },
+            { name: 'فترة الاحتفاظ بالمخزون', key: 'inventoryPeriod', formula: '365 / معدل دوران المخزون' }
+        ],
+        leverage: [
+            { name: 'نسبة الدين إلى حقوق الملكية', key: 'debtToEquity', formula: 'إجمالي الديون / حقوق الملكية' },
+            { name: 'نسبة الدين إلى الأصول', key: 'debtToAssets', formula: 'إجمالي الديون / إجمالي الأصول' },
+            { name: 'نسبة تغطية الفوائد', key: 'interestCoverage', formula: 'الربح قبل الفوائد والضرائب / مصروف الفوائد' },
+            { name: 'معدل الرافعة المالية', key: 'financialLeverage', formula: 'متوسط إجمالي الأصول / متوسط حقوق الملكية' },
+            { name: 'نسبة حقوق الملكية', key: 'equityRatio', formula: 'حقوق الملكية / إجمالي الأصول' },
+            { name: 'نسبة تغطية الدين', key: 'debtServiceCoverage', formula: 'التدفق النقدي التشغيلي / خدمة الدين' }
+        ],
+        market: [
+            { name: 'ربحية السهم', key: 'eps', formula: 'صافي الربح / عدد الأسهم المتداولة' },
+            { name: 'نسبة السعر إلى الربح', key: 'priceToEarnings', formula: 'سعر السهم / ربحية السهم' },
+            { name: 'نسبة السعر إلى القيمة الدفترية', key: 'priceToBook', formula: 'سعر السهم / القيمة الدفترية للسهم' },
+            { name: 'عائد توزيعات الأرباح', key: 'dividendYield', formula: 'توزيعات الأرباح للسهم / سعر السهم' },
+            { name: 'نسبة التوزيع', key: 'payoutRatio', formula: 'توزيعات الأرباح / صافي الربح' },
+            { name: 'القيمة السوقية للسهم', key: 'marketValuePerShare', formula: 'رأس المال السوقي / عدد الأسهم المتداولة' },
+            { name: 'مضاعف القيمة', key: 'priceMultiple', formula: 'سعر السهم / المبيعات للسهم الواحد' }
+        ]
+    };
+
+    // إعداد منطقة الرفع
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+
+    // أحداث السحب والإفلات
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        handleFiles(files);
+    });
+
+    function handleFiles(files) {
+        files.forEach(file => {
+            if (!uploadedFiles.some(f => f.name === file.name)) {
+                uploadedFiles.push(file);
+            }
+        });
+        displayFiles();
+        if (uploadedFiles.length > 0) {
+            analyzeBtn.style.display = 'inline-block';
+        }
+    }
+
+    function displayFiles() {
+        fileList.innerHTML = '';
+        uploadedFiles.forEach((file, index) => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <i class="file-icon ${getFileIcon(file.name)}"></i>
+                    <div class="file-details">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${formatFileSize(file.size)}</div>
+                    </div>
+                </div>
+                <button class="remove-file" onclick="removeFile(${index})">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            fileList.appendChild(fileItem);
+        });
+    }
+
+    function getFileIcon(filename) {
+        const ext = filename.split('.').pop().toLowerCase();
+        switch (ext) {
+            case 'pdf': return 'fas fa-file-pdf';
+            case 'xlsx': case 'xls': return 'fas fa-file-excel';
+            case 'csv': return 'fas fa-file-csv';
+            case 'docx': case 'doc': return 'fas fa-file-word';
+            case 'jpg': case 'jpeg': case 'png': return 'fas fa-file-image';
+            default: return 'fas fa-file';
+        }
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 بايت';
+        const k = 1024;
+        const sizes = ['بايت', 'كيلوبايت', 'ميجابايت', 'جيجابايت'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function removeFile(index) {
+        uploadedFiles.splice(index, 1);
+        displayFiles();
+        if (uploadedFiles.length === 0) {
+            analyzeBtn.style.display = 'none';
+        }
+    }
+
+    // تشغيل التحليل
+    document.getElementById('analyzeBtn').addEventListener('click', function() {
+        startAnalysis();
+    });
+
+    async function startAnalysis() {
+        // إظهار قسم المعالجة
+        document.querySelector('.upload-section').style.display = 'none';
+        document.getElementById('processingSection').style.display = 'block';
+
+        const steps = [
+            'قراءة وتحليل الملفات المرفوعة...',
+            'استخراج البيانات المالية...',
+            'حساب النسب المالية الـ 29...',
+            'تحليل الاتجاهات والمقارنات...',
+            'تقييم المخاطر المالية...',
+            'إنتاج التوصيات والقرارات...',
+            'إعداد التقارير النهائية...'
+        ];
+
+        for (let i = 0; i < steps.length; i++) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            addProcessingStep(steps[i]);
+        }
+
+        // محاكاة تحليل البيانات
+        analysisData = await performAnalysis();
+
+        // إظهار النتائج
+        setTimeout(() => {
+            document.getElementById('processingSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            displayResults();
+        }, 1000);
+    }
+
+    function addProcessingStep(step) {
+        const stepDiv = document.createElement('div');
+        stepDiv.style.cssText = 'background: rgba(255,215,0,0.1); padding: 10px; margin: 5px 0; border-radius: 5px; border-right: 3px solid #FFD700;';
+        stepDiv.innerHTML = `<i class="fas fa-check" style="color: #4CAF50; margin-left: 10px;"></i> ${step}`;
+        document.getElementById('processingSteps').appendChild(stepDiv);
+    }
+
+    async function performAnalysis() {
+        // محاكاة التحليل الحقيقي
+        const mockData = {
+            overview: {
+                totalAssets: 1500000,
+                totalLiabilities: 800000,
+                equity: 700000,
+                revenue: 2000000,
+                netIncome: 300000,
+                overallRating: 'B+',
+                riskLevel: 'متوسط'
+            },
+            ratios: {},
+            trends: [],
+            comparison: {},
+            risks: [],
+            recommendations: []
+        };
+
+        // حساب النسب المالية
+        Object.keys(financialRatios).forEach(category => {
+            financialRatios[category].forEach(ratio => {
+                mockData.ratios[ratio.key] = {
+                    value: (Math.random() * 5 + 0.5).toFixed(2),
+                    status: ['excellent', 'good', 'fair', 'poor'][Math.floor(Math.random() * 4)],
+                    benchmark: (Math.random() * 5 + 0.5).toFixed(2)
+                };
+            });
+        });
+
+        return mockData;
+    }
+
+    function displayResults() {
+        displayOverview();
+        displayRatios();
+        displayTrends();
+        displayComparison();
+        displayRisks();
+        displayRecommendations();
+    }
+
+    function displayOverview() {
+        const content = document.getElementById('overviewContent');
+        content.innerHTML = `
+            <div class="ratios-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="ratio-card">
+                    <div class="ratio-value">${(analysisData.overview.totalAssets / 1000000).toFixed(1)}M</div>
+                    <div class="ratio-name">إجمالي الأصول</div>
+                    <div class="ratio-status status-good">مليون ريال</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">${(analysisData.overview.revenue / 1000000).toFixed(1)}M</div>
+                    <div class="ratio-name">إجمالي الإيرادات</div>
+                    <div class="ratio-status status-excellent">مليون ريال</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">${(analysisData.overview.netIncome / 1000000).toFixed(1)}M</div>
+                    <div class="ratio-name">صافي الربح</div>
+                    <div class="ratio-status status-good">مليون ريال</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">${analysisData.overview.overallRating}</div>
+                    <div class="ratio-name">التصنيف الإجمالي</div>
+                    <div class="ratio-status status-good">تصنيف ائتماني</div>
+                </div>
+            </div>
+            
+            <div class="recommendations" style="margin-top: 30px;">
+                <h3>الملخص التنفيذي</h3>
+                <div class="recommendation-item">
+                    <h4>الأداء العام للشركة</h4>
+                    <p>تُظهر الشركة أداءً مالياً جيداً بشكل عام مع مستوى مخاطر ${analysisData.overview.riskLevel}. 
+                    الإيرادات في نمو مستمر والسيولة في وضع مريح.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function displayRatios() {
+        const content = document.getElementById('ratiosContent');
+        let html = '';
+
+        Object.keys(financialRatios).forEach(category => {
+            const categoryNames = {
+                'liquidity': 'نسب السيولة',
+                'profitability': 'نسب الربحية',
+                'efficiency': 'نسب الكفاءة',
+                'leverage': 'نسب الرافعة المالية',
+                'market': 'نسب السوق'
+            };
+
+            html += `
+                <h3 style="color: #FFD700; margin: 30px 0 20px; border-bottom: 2px solid #FFD700; padding-bottom: 10px;">
+                    ${categoryNames[category]}
+                </h3>
+                <div class="ratios-grid">
+            `;
+
+            financialRatios[category].forEach(ratio => {
+                const data = analysisData.ratios[ratio.key];
+                html += `
+                    <div class="ratio-card">
+                        <div class="ratio-value">${data.value}</div>
+                        <div class="ratio-name">${ratio.name}</div>
+                        <div class="ratio-status status-${data.status}">
+                            ${getStatusText(data.status)}
+                        </div>
+                        <div style="margin-top: 10px; font-size: 0.8rem; color: #ccc;">
+                            المعيار القطاعي: ${data.benchmark}
+                        </div>
+                        <div style="margin-top: 5px; font-size: 0.7rem; color: #999;">
+                            ${ratio.formula}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+        });
+
+        content.innerHTML = html;
+    }
+
+    function getStatusText(status) {
+        const statusTexts = {
+            'excellent': 'ممتاز',
+            'good': 'جيد',
+            'fair': 'متوسط',
+            'poor': 'ضعيف'
+        };
+        return statusTexts[status];
+    }
+
+    function displayTrends() {
+        const content = document.getElementById('trendsContent');
+        content.innerHTML = `
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-title">اتجاه الإيرادات (5 سنوات)</div>
+                    <div style="height: 300px; display: flex; align-items: center; justify-content: center; color: #ccc;">
+                        <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <div>سيتم عرض الرسم البياني هنا</div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-title">اتجاه الربحية</div>
+                    <div style="height: 300px; display: flex; align-items: center; justify-content: center; color: #ccc;">
+                        <i class="fas fa-chart-area" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <div>سيتم عرض الرسم البياني هنا</div>
+                    </div>
+                </div>
+            </div>
+            <div class="recommendations">
+                <h3>تحليل الاتجاهات</h3>
+                <div class="recommendation-item">
+                    <h4>النمو في الإيرادات</h4>
+                    <p>نمو مستقر في الإيرادات بمعدل سنوي قدره 8.5% خلال السنوات الخمس الماضية</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>تحسن الربحية</h4>
+                    <p>تحسن واضح في هامش الربح الصافي من 12% إلى 15% خلال العامين الأخيرين</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function displayComparison() {
+        const content = document.getElementById('comparisonContent');
+        content.innerHTML = `
+            <div class="ratios-grid">
+                <div class="ratio-card">
+                    <div class="ratio-value">85%</div>
+                    <div class="ratio-name">المرتبة في القطاع</div>
+                    <div class="ratio-status status-excellent">المركز الثاني من 12</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">+12%</div>
+                    <div class="ratio-name">تفوق على المتوسط</div>
+                    <div class="ratio-status status-good">أعلى من متوسط القطاع</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">AAA</div>
+                    <div class="ratio-name">تصنيف المنافسة</div>
+                    <div class="ratio-status status-excellent">من أفضل 3 شركات</div>
+                </div>
+            </div>
+            <div class="recommendations">
+                <h3>المقارنات القطاعية</h3>
+                <div class="recommendation-item">
+                    <h4>الموقع التنافسي</h4>
+                    <p>الشركة تحتل مركزاً متقدماً في القطاع مع أداء أعلى من المتوسط في معظم المؤشرات</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>نقاط القوة</h4>
+                    <p>تتفوق الشركة في السيولة والربحية وكفاءة استخدام الأصول</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>مجالات التحسين</h4>
+                    <p>يمكن تحسين إدارة المخزون وتقليل فترة التحصيل</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function displayRisks() {
+        const content = document.getElementById('risksContent');
+        content.innerHTML = `
+            <div class="ratios-grid">
+                <div class="ratio-card">
+                    <div class="ratio-value">2.85</div>
+                    <div class="ratio-name">مؤشر ألتمان Z-Score</div>
+                    <div class="ratio-status status-good">منطقة آمنة</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">-1.22</div>
+                    <div class="ratio-name">مؤشر بينيش M-Score</div>
+                    <div class="ratio-status status-excellent">لا توجد مؤشرات تلاعب</div>
+                </div>
+                <div class="ratio-card">
+                    <div class="ratio-value">متوسط</div>
+                    <div class="ratio-name">مستوى المخاطر الإجمالي</div>
+                    <div class="ratio-status status-fair">قابل للإدارة</div>
+                </div>
+            </div>
+            <div class="recommendations">
+                <h3>تحليل المخاطر المالية</h3>
+                <div class="recommendation-item">
+                    <h4>مخاطر السيولة</h4>
+                    <p>منخفضة - الشركة تحتفظ بسيولة كافية لتغطية الالتزامات قصيرة المدى</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>مخاطر الائتمان</h4>
+                    <p>متوسطة - نسبة الدين معقولة ولكن تحتاج لمراقبة</p>
+                </div>
+                <div class="recommendation-item">
+                    <h4>مخاطر التشغيل</h4>
+                    <p>منخفضة إلى متوسطة - استقرار في العمليات التشغيلية</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function displayRecommendations() {
+        const content = document.getElementById('recommendationsContent');
+        content.innerHTML = `
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="recommendations">
+                    <h3 style="color: #4CAF50;"><i class="fas fa-user-tie"></i> للإدارة التنفيذية</h3>
+                    <div class="recommendation-item">
+                        <h4>تحسين إدارة رأس المال العامل</h4>
+                        <p>تقليل فترة التحصيل من 45 إلى 35 يوم وتحسين دوران المخزون</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>زيادة الاستثمار في النمو</h4>
+                        <p>استغلال السيولة القوية للتوسع في أسواق جديدة</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>تحسين الكفاءة التشغيلية</h4>
+                        <p>تطبيق تقنيات جديدة لخفض التكاليف وزيادة الإنتاجية</p>
+                    </div>
+                </div>
+                
+                <div class="recommendations">
+                    <h3 style="color: #2196F3;"><i class="fas fa-chart-line"></i> للمستثمرين</h3>
+                    <div class="recommendation-item">
+                        <h4>توصية الاستثمار: شراء</h4>
+                        <p>السهم مقيم بأقل من قيمته العادلة بحوالي 15%</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>السعر المستهدف</h4>
+                        <p>45-50 ريال للسهم خلال 12 شهر (السعر الحالي: 39 ريال)</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>استراتيجية الاستثمار</h4>
+                        <p>استثمار متوسط إلى طويل المدى مع إعادة تقييم ربع سنوي</p>
+                    </div>
+                </div>
+                
+                <div class="recommendations">
+                    <h3 style="color: #FF9800;"><i class="fas fa-university"></i> للجهات المقرضة</h3>
+                    <div class="recommendation-item">
+                        <h4>الجدارة الائتمانية: B+</h4>
+                        <p>مستوى مخاطر متوسط مع قدرة جيدة على السداد</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>حد الائتمان المقترح</h4>
+                        <p>حتى 200 مليون ريال بفترة سداد 5 سنوات</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>الشروط والضمانات</h4>
+                        <p>ضمان عيني بقيمة 120% من المبلغ ومراجعة دورية ربع سنوية</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recommendations" style="margin-top: 30px;">
+                <h3 style="text-align: center; color: #FFD700;">
+                    <i class="fas fa-bullseye"></i> الخطة التنفيذية المقترحة
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="recommendation-item">
+                        <h4>قصيرة المدى (3 أشهر)</h4>
+                        <p>• تحسين عمليات التحصيل<br>
+                        • مراجعة سياسات الائتمان<br>
+                        • تطوير نظم المراقبة المالية</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>متوسطة المدى (12 شهر)</h4>
+                        <p>• تنفيذ خطة التوسع<br>
+                        • تحسين الكفاءة التشغيلية<br>
+                        • زيادة الاستثمار في التكنولوجيا</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <h4>طويلة المدى (3 سنوات)</h4>
+                        <p>• دخول أسواق جديدة<br>
+                        • تطوير منتجات مبتكرة<br>
+                        • بناء شراكات استراتيجية</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // تبديل التبويبات
+    function showTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById(tabName).classList.add('active');
+    }
+
+    // تصدير التقارير
+    function exportPDF() {
+        alert('سيتم تصدير التقرير الشامل كملف PDF');
+        // هنا يمكن إضافة مكتبة jsPDF لتصدير PDF حقيقي
+    }
+
+    function exportExcel() {
+        alert('سيتم تصدير البيانات والحسابات كملف Excel');
+        // هنا يمكن إضافة مكتبة SheetJS لتصدير Excel حقيقي
+    }
+
+    function exportWord() {
+        alert('سيتم تصدير التقرير كمستند Word');
+        // هنا يمكن إضافة مكتبة docx لتصدير Word حقيقي
+    }
+</script>
+```
+
+</body>
+</html>
